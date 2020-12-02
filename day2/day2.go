@@ -14,9 +14,16 @@ type Day2Data struct {
 	Password string
 }
 
-func (d *Day2Data) Valid() bool {
+func (d *Day2Data) Valid1() bool {
 	matched := regexp.MustCompile(d.Char).FindAllString(d.Password, -1)
 	return len(matched) >= d.Min && len(matched) <= d.Max
+}
+
+func (d *Day2Data) Valid2() bool {
+	m1 := string(d.Password[d.Min-1]) == d.Char
+	m2 := string(d.Password[d.Max-1]) == d.Char
+
+	return !(m1 && m2) && (m1 || m2)
 }
 
 func day2Data() ([]Day2Data, error) {
