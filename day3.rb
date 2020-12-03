@@ -12,7 +12,8 @@ end
 puts "PART 1: HITS: #{hits}"
 
 # PART 2
-lines = File.read('data/day3_sample.txt').split("\n")
+lines = File.read('data/day3.txt').split("\n")
+all_hits = []
 [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]].each do |(right, down)|
   hits = 0
   x, y = [0, 0]
@@ -25,4 +26,6 @@ lines = File.read('data/day3_sample.txt').split("\n")
     y += down
   end
   puts "PART 2: Right #{right}, down: #{down}: HITS: #{hits}"
+  all_hits << hits
 end
+puts "PART 2: multiplied: #{all_hits.reduce(:*)}"
