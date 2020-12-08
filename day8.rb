@@ -21,7 +21,7 @@ def run(instructions)
     break if done[curr] > 0
     done[curr] += 1
     line = instructions[curr]
-    p [curr, line]
+    # p [curr, line]
     case line[0]
     when 'nop'
       curr += 1
@@ -37,6 +37,24 @@ def run(instructions)
   RUN.new(false, global_val)
 end
 
+def find_fix(path)
+  instructions = read(path)
+  instructions.each.with_index do |(op, _), index|
+    instr = read(path)
+    # puts "OP: #{op} ; INDEX: #{index}"
+    case op
+    when 'nop'
+      instr[index][0] = 'jmp'
+    when 'jmp'
+      instr[index][0] = 'nop'
+    else
+      next
+    end
+    ans = run(instr)
+    return [index, ans] if ans.done
+  end
+end
+
 puts "Part 1 - Sample 1"
 instructions = read('data/day8_sample.txt')
 p run(instructions)
@@ -46,6 +64,9 @@ instructions = read('data/day8.txt')
 p run(instructions)
 
 puts "Part 2 - Sample 2"
-instructions = read('data/day8_sample2.txt')
-p run(instructions)
+index, ans = find_fix('data/day8_sample.txt')
+puts "DONE: LINE: #{index}: GLOBAL: #{ans.global_val}"
 
+puts "Part 2"
+index, ans = find_fix('data/day8.txt')
+puts "DONE: LINE: #{index}: GLOBAL: #{ans.global_val}"
