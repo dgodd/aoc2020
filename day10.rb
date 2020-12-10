@@ -23,16 +23,18 @@ end
 # p diff
 puts "Part 1: #{diff[1] * diff[3]}"
 
+@memo = {}
 def recurse_max3(nums, prev = 0, path = [])
   # puts "CALL: #{path.inspect}, #{nums.inspect}"
-  # puts "PATH: #{path.inspect}" if nums.length <= 1
+  puts "PATH: #{path.inspect}" if nums.length <= 1
   return 1 if nums.length <= 1
   sum = 0
   nums.each.with_index(1) do |n, index|
     break if n > (prev + 3)
     rest = nums[index..]
     # p [n, nums, index, rest]
-    sum += recurse_max3(rest, n, path+[n])
+    @memo[[rest, n]] ||= recurse_max3(rest, n, path+[n])
+    sum += @memo[[rest, n]]
   end
   sum
 end
