@@ -21,6 +21,14 @@ def adjacent(seats, i, j)
   end.compact
 end
 
+def see_others(seats, i, j)
+  count = 0
+  count += 1 if seats[i].any?(FULL) # Same row
+  count += 1 if seats.map { |row| row[j] }.any?(FULL) # Same Column
+  # First diagonal
+  ((i - j)..[seats.length, seats.first.length].max).each.with_index do |x|
+end
+
 def next_seats(seats)
   new = []
   seats.each.with_index do |row, i|
