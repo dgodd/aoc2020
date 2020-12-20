@@ -1,0 +1,6 @@
+alpha = { 'a'..'z' | 'A'..'Z' }
+alphas = { alpha+ }
+digit = { '0'..'9' }
+digits = { digit+ }
+line = { digits ~ "-" ~ digits ~ " " ~ alpha ~ ": " ~ alphas }
+lines = _{ (line ~ "\n")+ }
